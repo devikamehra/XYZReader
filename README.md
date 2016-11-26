@@ -1,4 +1,5 @@
 # XYZReader
+<<<<<<< HEAD
 Udacity Android Nanodegree: Project 5
 
 ## Project description:
@@ -17,3 +18,6 @@ Through this project, you will:
 * Apply Material Design guidelines to an mobile application.
 * Separate an interface into surfaces.
 * Effectively use transitions and motion.
+=======
+This repo contains project for Udacity Android Nanodegree
+>>>>>>> 0a36a72f10cf9d74841d3a34fe724af4c26ffea7
