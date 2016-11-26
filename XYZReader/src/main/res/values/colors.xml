@@ -1,0 +1,12 @@
+<resources>
+    <color name="photo_placeholder">#ccc</color>
+
+    <color name="primary">#9B26AF</color>
+    <color name="primary_dark">#691A99</color>
+    <color name="primary_light">#7A1EA1</color>
+    <color name="accent">#68EFAD</color>
+
+    <color name="md_grey_600">#757575</color>
+    <color name="md_grey_900">#212121</color>
+
+</resources>

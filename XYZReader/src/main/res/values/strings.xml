@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">XYZ Reader</string>
+    <string name="action_share">Share</string>
+    <string name="loading_text">Content is Updating. Please Wait</string>
+    <string name="error_text">Error reading item detail cursor</string>
+
+</resources>
