@@ -8,13 +8,11 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
-import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,7 +31,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind (R.id.article_image) ImageView imageView;
+        @Bind (R.id.article_image) DynamicHeightNetworkImageView imageView;
         @Bind (R.id.article_title) TextView titleView;
         @Bind (R.id.article_author) TextView authorNameView;
         @Bind (R.id.article_date) TextView dateView;
@@ -91,7 +89,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 DateUtils.FORMAT_ABBREV_ALL).toString());
         String url = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
         if (url != null) {
-            Picasso.with(mContext).load(url).into(holder.imageView);
+            holder.imageView.setImageUrl(
+                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
+                    ImageLoaderHelper.getInstance(mContext).getImageLoader());
+            holder.imageView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
         }
     }
 

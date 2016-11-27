@@ -12,18 +12,14 @@
     app:cardElevation="@dimen/cardview_default_elevation"
     card_view:cardCornerRadius="@dimen/default_padding_small">
 
-    <View
-        android:layout_marginTop="@dimen/separator_top_margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/separator_height"
-        android:background="@color/primary"/>
-
     <LinearLayout
+        android:minHeight="@dimen/min_height_list_item"
+        android:background="@drawable/card_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.example.xyzreader.ui.DynamicHeightNetworkImageView
             android:id="@+id/article_image"
             android:layout_width="@dimen/imageview_in_list_height"
             android:layout_height="@dimen/imageview_in_list_height"

@@ -5,11 +5,13 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -21,9 +23,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -130,17 +133,37 @@ public class ArticleDetailFragment extends Fragment implements
 
             String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
             mAuthorName.setText(author);
-            String date = DateUtils.getRelativeTimeSpanString(mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE))
-                            .toString()
-                            .substring(0, 11);
-            mArticleDate.setText(date);
+            mArticleDate.setText(DateUtils.getRelativeTimeSpanString(
+                    mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
+                    System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_ALL).toString());
 
             String body = mCursor.getString(ArticleLoader.Query.BODY);
             mDesc.setText(Html.fromHtml(body));
 
             String url = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
             if (url != null) {
-                Picasso.with(getActivity()).load(url).into(mPhoto);
+                ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
+                        .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
+                            @Override
+                            public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                                Bitmap bitmap = imageContainer.getBitmap();
+                                if (bitmap != null) {
+                                    Palette palette = Palette.generate(bitmap, 12);
+                                    Palette.Swatch swatch = palette.getVibrantSwatch();
+                                    if (swatch != null) {
+                                        layout.setContentScrimColor(swatch.getRgb());
+                                        layout.setCollapsedTitleTextColor(swatch.getTitleTextColor());
+                                        mPhoto.setImageBitmap(imageContainer.getBitmap());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+
+                            }
+                        });
             }
         }
 

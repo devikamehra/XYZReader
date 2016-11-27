@@ -19,6 +19,7 @@
     <dimen name="separator_height">3dp</dimen>
     <dimen name="layout_margin_detail_fragment">24dp</dimen>
     <dimen name="icon_dimension">48dp</dimen>
-    <dimen name="share_fab_elevation">12dp</dimen>
+    <dimen name="share_fab_elevation">6dp</dimen>
+    <dimen name="min_height_list_item">110dp</dimen>
 
 </resources>

@@ -160,7 +160,7 @@
         android:clickable="true"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"
-        app:pressedTranslationZ="16dp"
+        app:pressedTranslationZ="@dimen/share_fab_elevation"
         app:borderWidth="0dp"
         app:elevation="@dimen/share_fab_elevation"
         app:rippleColor="@color/primary_dark" />
